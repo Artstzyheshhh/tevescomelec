@@ -19,7 +19,6 @@ class Application extends Model
         'candidate_id',
         'position_id',
         'status',
-        'date',
         
     ];
     

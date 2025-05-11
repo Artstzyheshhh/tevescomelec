@@ -15,7 +15,6 @@ class Logged extends Model
      */
     protected $fillable = [
         'action',
-        'date',
         'user_id',      
     ];
     

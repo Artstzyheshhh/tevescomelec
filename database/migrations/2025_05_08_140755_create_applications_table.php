@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('candidate_id')->constrained('candidates')->onDelete('cascade');
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->string('status');
-            $table->date('date');
             $table->timestamps();
         });
     }

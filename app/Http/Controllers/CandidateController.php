@@ -82,7 +82,7 @@ class CandidateController extends Controller
         return response()->json(['message' => 'Candidate updated successfully', 'candidate' => $candidate ]);
     }   
 
-    public function deleteStudent($id){
+    public function deleteCandidate($id){
         $candidate = Candidate::find($id);
 
         if(!$candidate){

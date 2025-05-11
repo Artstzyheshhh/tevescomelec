@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('shortname');
             $table->string('contact');
             $table->string('platform');
-            $table->date('date');
             $table->string('status');          
-            $table->rememberToken();
             $table->timestamps();
         });
     }
