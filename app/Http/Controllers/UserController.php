@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; 
+use App\Models\Logs;
 
 class UserController extends Controller
 {
@@ -37,6 +40,11 @@ class UserController extends Controller
             'status' => $request->status,
             'email' => $request->email,
             'password' => Hash::make($request->password)
+        ]);
+
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Created user (ID: ' . $user->id . ')',
         ]);
         return response()->json(['message' => 'User added successfully', 'user' => $user]);
     }
@@ -71,6 +79,11 @@ class UserController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated user (ID: ' . $user->id . ')',
+        ]);
+
         return response()->json(['message' => 'User updated successfully', 'user' => $user ]);
     } 
 
@@ -81,8 +94,12 @@ class UserController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
 
+        $userId = $user->id;
         $user->delete();
-
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted application (ID: ' . $userId . ')',
+        ]);
         return response()->json(['message' => 'User deleted successfully']);
     }
 }

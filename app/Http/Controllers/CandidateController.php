@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
+use App\Models\Logs;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CandidateController extends Controller
 {
@@ -41,6 +44,11 @@ class CandidateController extends Controller
             'email' => $request->email,
             'user_id' => $request->user_id
         ]);
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Created Candidate (ID: ' . $candidate->id . ')',
+        ]);
+
         return response()->json(['message' => 'Candidate added successfully', 'candidate' => $candidate]);
     }
 
@@ -79,6 +87,11 @@ class CandidateController extends Controller
             'user_id' => $request->user_id
         ]);
 
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated candidate (ID: ' . $candidate->id . ')',
+        ]);
+
         return response()->json(['message' => 'Candidate updated successfully', 'candidate' => $candidate ]);
     }   
 
@@ -88,8 +101,12 @@ class CandidateController extends Controller
         if(!$candidate){
             return response()->json(['message' => 'Candidate not found'], 404);
         }
-
+        $candidateId = $candidate->id;
         $candidate->delete();
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted candidate (ID: ' . $candidateId . ')',
+        ]);
 
         return response()->json(['message' => 'Candidate deleted successfully']);
     }

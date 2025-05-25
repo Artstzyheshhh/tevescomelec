@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Position;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; 
+use App\Models\Logs;
 class PositionController extends Controller
 {
     //
@@ -24,6 +27,11 @@ class PositionController extends Controller
             'positionname' => $request->positionname,
             'term' => $request->term,
             
+        ]);
+
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Created position (ID: ' . $position->id . ')',
         ]);
         return response()->json(['message' => 'User added successfully', 'position' => $position]);
     }
@@ -47,6 +55,11 @@ class PositionController extends Controller
             
         ]);
 
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated position (ID: ' . $position->id . ')',
+        ]);
+
         return response()->json(['message' => 'Position updated successfully', 'position' => $position ]);
     } 
 
@@ -56,9 +69,12 @@ class PositionController extends Controller
         if(!$position){
             return response()->json(['message' => 'Position not found'], 404);
         }
-
+        $positionId = $position->id;
         $position->delete();
-
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted position (ID: ' . $positionId . ')',
+        ]);
         return response()->json(['message' => 'Position deleted successfully']);
     }
 }

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Partylist;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log; 
+use App\Models\Logs;
 class PartylistController extends Controller
 {
     //
@@ -31,6 +34,12 @@ class PartylistController extends Controller
             'user_id' => $request->user_id,
             
         ]);
+
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Created partylist (ID: ' . $partylist->id . ')',
+        ]);
+
         return response()->json(['message' => 'Partylist added successfully', 'partylist' => $partylist]);
     }
 
@@ -58,7 +67,10 @@ class PartylistController extends Controller
             'status' => $request->status,
             'user_id' => $request->user_id
         ]);
-
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Updated partylist (ID: ' . $partylist->id . ')',
+        ]);
         return response()->json(['message' => 'Partylist updated successfully', 'partylist' => $partylist ]);
     } 
 
@@ -68,8 +80,13 @@ class PartylistController extends Controller
         if(!$partylist){
             return response()->json(['message' => 'Partylist not found'], 404);
         }
-        $partylist->delete();
 
+        $partylistId = $partylist->id;
+        $partylist->delete();
+        $logs = Logs::create([
+            'user_id' => Auth::id(),
+            'action' => 'Deleted partylist (ID: ' . $partylistId . ')',
+        ]);
         return response()->json(['message' => 'Partylist deleted successfully']);
     }
 
