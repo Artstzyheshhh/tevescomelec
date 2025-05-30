@@ -20,6 +20,7 @@ class PartylistController extends Controller
             'partylistname' => ['required', 'string', 'max:255'],
             'shortname' => ['required', 'string', 'max:255'],
             'contact' => ['required', 'string', 'max:255'],
+            'date' => ['required', 'string', 'max:255'],
             'platform' => ['required', 'string', 'max:255'],
             'status' => ['required', 'string', 'max:255'],
             'user_id' => ['required', 'exists:users,id']   
@@ -29,6 +30,7 @@ class PartylistController extends Controller
             'partylistname' => $request->partylistname,
             'shortname' => $request->shortname,
             'contact' => $request->contact,
+            'date' => $request->date,
             'platform' => $request->platform,
             'status' => $request->status,
             'user_id' => $request->user_id,

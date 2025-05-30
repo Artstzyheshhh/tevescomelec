@@ -18,6 +18,7 @@ class Partylist extends Model
         'shortname',
         'contact',
         'platform',
+        'date',
         'status',
         'user_id',
         

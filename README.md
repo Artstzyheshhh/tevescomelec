@@ -64,3 +64,47 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Main features
+## PROJECT NAME: Comelec Filing Application system
+LIST OF FEATURES:
+1. Authentication
+2. Manage User data
+3. Manage candidate data
+4. Manage party-list data
+5. Manage my account
+6. Privilege for admin
+
+## AUTHENTICATION
+Register
+Login
+Logout
+
+## MANAGE USER DATA
+Get Users data
+Add User data
+Edit User data
+Delete User data
+
+## MANAGE CANDIDATE DATA
+Get candidates data
+Add candidate data
+Edit candidate data
+Delete candidate data
+View disqualified candidate
+View candidate roles
+## MANAGE PARTY-LIST DATA
+Get candidates data
+Add candidate data
+Edit candidate data
+Delete candidate data
+
+## MANAGE POSITION DATA
+Get positions data
+Add position data
+Edit position data
+Delete position data
+
+## MANAGE MY ACCOUNT
+Edit my account information
+Edit my password
